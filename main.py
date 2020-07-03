@@ -3,6 +3,7 @@ from selenium import webdriver
 import os
 import pandas as pd
 import time
+import sys
 address = "users/excel/examples.xlsx"
 destination = "users/csv/examples.csv"
 df = XlsxToCsvFilter.filter_columns(XlsxToCsvFilter.to_csv(address, destination))
@@ -16,9 +17,16 @@ df = XlsxToCsvFilter.filter_columns(XlsxToCsvFilter.to_csv(address, destination)
 #
 
 
-
+o_s = sys.platform
 project_folder_path = os.getcwd()
-driver_path = os.path.join(project_folder_path, r"Chrome_Drivers\chromedriver.exe")
+if o_s == "win32":
+    driver_path = os.path.join(project_folder_path, r"Chrome_Drivers\chromedriver_windows.exe")
+elif o_s == "linux":
+    driver_path = os.path.join(project_folder_path, r"Chrome_Drivers\chromedriver_linux")
+else:
+    driver_path = os.path.join(project_folder_path, r"Chrome_Drivers\chromedriver_mac")
+
+
 
 
 driver = webdriver.Chrome(driver_path)
